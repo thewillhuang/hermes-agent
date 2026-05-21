@@ -26,6 +26,13 @@ Enable production-grade deployment of Hermes Agent (CLI, gateway, profiles, skil
   - Clones or pulls the desired profile/skill set.
   - Configures `~/.hermes/config.yaml` and `.env` from SSM.
   - Starts the gateway and enables linger for the service user.
+- **Production Fixes Included**:
+  - `loginctl enable-linger` for the Hermes service user (prevents gateway death on SSH logout).
+  - Webhook mode configuration for Telegram/Discord (preferred for prod over polling; bypasses privacy filters via @mention bridge if needed).
+  - Log rotation + journald forwarding to CloudWatch.
+  - Auto-restart on failure via systemd.
+  - Minimal security groups (only necessary ports + admin IP for SSH).
+  - Telegram webhook endpoint setup with secret token validation.
 - OpenTofu module structure under `infrastructure/aws/hermes-gateway/`.
 - Example `opentofu.tfvars` and `backend.tf` (S3 + DynamoDB for state).
 - Full documentation in `docs/deployment/aws-with-opentofu.md`.
